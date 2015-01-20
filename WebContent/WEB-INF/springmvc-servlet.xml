@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd       
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd       
+	  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<context:component-scan base-package="edu.cuc.culturaldev">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="application/json" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="html" value="text/html"/>
+			</map>
+		</property>
+		<property name="favorParameter" value="false" />
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+				    <property name="encoding">
+            			<value type="org.codehaus.jackson.JsonEncoding">UTF8</value>
+       	 			</property>
+       	 			<property name="objectMapper" ref="customObjectMapper"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- view resolver -->
+	<!-- 只能支持解析可由Servlet API的RequestDispatcher转发的视图资源图，如：内部jsp或者servlet。  --> 
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<!-- 决定视图类型，如果添加了jstl支持（即有jstl.jar），那么默认就是解析为jstl视图 --> 
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		 <!-- 视图前缀 -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		 <!-- 视图后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="customObjectMapper" class="edu.cuc.culturaldev.common.spring.CustomObjectMapper"/>
+	<bean id="exceptionResolver" class="edu.cuc.culturaldev.common.spring.CustomSimpleMappingExceptionResolver">
+		<property name="exceptionMappings">    
+             <props>    
+                 <prop key="java.lang.Exception">errors/500</prop>    
+                 <prop key="java.lang.Throwable">errors/500</prop>    
+             </props>    
+         </property>    
+         <property name="statusCodes">    
+             <props>
+                 <prop key="errors/500">500</prop>
+                 <prop key="errors/404">404</prop>
+             </props>    
+         </property>    
+         <property name="warnLogCategory" value="ERROR"></property>    
+         <property name="defaultStatusCode" value="500"></property>
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+    	<property name="maxUploadSize" value="2048000000"/><!-- 2G -->
+	</bean>
+	<mvc:annotation-driven />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="edu.cuc.culturaldev.portal.interceptor.PortalInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!--  
+	<mvc:interceptors>
+	    <mvc:interceptor>  
+           <mvc:mapping path="/**" />
+           <mvc:exclude-mapping path="/manage/**"/>
+           <mvc:exclude-mapping path="/druid/**"/>
+           <bean class="com.dongeejiao.portal.interceptor.PortalInterceptor"/>  
+        </mvc:interceptor>
+        <mvc:interceptor>
+           <mvc:mapping path="/supplier/p/**" /> 
+           <bean class="com.dongeejiao.portal.interceptor.SupplierInterceptor"/>  
+        </mvc:interceptor>
+        <mvc:interceptor>
+        	<mvc:mapping path="/manage/**"/>
+        	<mvc:exclude-mapping path="/manage/goLogin.*"/>
+        	<mvc:exclude-mapping path="/manage/login.*"/>
+        	<mvc:exclude-mapping path="/manage/logout.*"/>
+        	<bean class="com.dongeejiao.manage.interceptor.ManageInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    -->
+</beans>

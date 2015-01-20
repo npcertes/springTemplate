@@ -1,0 +1,90 @@
+.divider-margin{
+	margin:-10px 0px 10px 0px;
+}
+
+.white-margin{
+	margin-top: 25px;
+}
+
+.fa-height{
+	height: 30px !important;
+}
+
+.divider-star{
+	margin:-11px 0 30px 0 !important;
+}
+
+#blog .item-step{
+	margin-bottom: 30px !important;
+	padding-bottom: 20px !important;
+}
+
+#blog .tender-step{
+	margin-bottom: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+#blog .tender-title {
+	margin-bottom: 0px;
+	display: block;
+}
+
+.td-mid{
+	vertical-align: middle !important;
+}
+
+.search-job{
+	border-radius: 4px !important;
+}
+
+.search-type{
+	padding-bottom:2px !important;
+}
+
+.padding30{
+	padding: 60px 0 !important;
+}
+
+.apply-sex{
+	border-radius: 4px !important;
+}
+
+.apply-sex label{
+	margin-left:5px;
+	margin-top:4px;
+}
+
+.law-div{
+	margin:0 0 0 0 !important;
+}
+
+.job-img{
+	margin-top: -40px;
+	margin-bottom: 10px;
+}
+
+.error-bg{
+	background-image:url('../images/demo/product/errorbg.jpg');
+	overflow: visible!important;
+	height: 100%;
+	position: relative;
+}
+
+.notFound{
+	width:40%;
+	margin: auto;
+}
+
+.error-title{
+	margin-top:25px;
+	margin-bottom:-25px;
+}
+
+.notFound-img{
+	width:100%;
+}
+
+.error-tip{
+	color: #FF0000;
+	margin-left: 55px;
+}

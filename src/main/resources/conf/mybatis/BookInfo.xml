@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cuc.culturaldev.dao.BookInfoDao">
+	<cache />
+	<resultMap type="BookInfo" id="t_book_infoMap">
+      	<result property="bookId" column="book_id" />
+		<result property="bookName" column="book_name" />
+		<result property="bookPress" column="book_press" />
+		<result property="bookAuthor" column="book_author" />
+		<result property="bookKeyword" column="book_keyword" />
+		<result property="bookNumber" column="book_number" />
+		<result property="bookBorrowNum" column="book_borrow_num" />
+  	</resultMap>
+  	<sql id="BookInfo_WHERE">
+	<where>
+		<if test="bookId!=null">
+			 and book_id=#{bookId,jdbcType=VARCHAR}
+		</if>
+		<if test="bookName!=null">
+			 and book_name=#{bookName,jdbcType=VARCHAR}
+		</if>
+		<if test="bookPress!=null">
+			 and book_press=#{bookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="bookAuthor!=null">
+			 and book_author=#{bookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="bookKeyword!=null">
+			 and book_keyword=#{bookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="bookNumber!=null">
+			 and book_number=#{bookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="bookBorrowNum!=null">
+			 and book_borrow_num=#{bookBorrowNum,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </sql>
+  <sql id="BookInfoSearchBean_WHERE">
+	<where>
+		<if test="bookId!=null">
+			 and book_id=#{bookId,jdbcType=VARCHAR}
+		</if>
+		<if test="bookName!=null">
+			 and book_name=#{bookName,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookName!=null and isNotNullBookName==true">
+			 and book_name is not null
+		</if>
+		<if test="isNotNullBookName!=null and isNotNullBookName==false">
+			 and book_name is null
+		</if>
+		<if test="inBookName!=null">
+			 and book_name in
+			<foreach collection="list" index="index" item="inBookName" open="(" separator="," close=")">
+				#{inBookName}
+			</foreach>
+		</if>
+		<if test="notInBookName!=null">
+			 and book_name not in
+			<foreach collection="list" index="index" item="notInBookName" open="(" separator="," close=")">
+				#{notInBookName}
+			</foreach>
+		</if>
+		<if test="noEqualsBookName!=null">
+			 and book_name<![CDATA[<>]]>#{noEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookName!=null">
+			 and book_name=#{equalsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookName!=null">
+			 and book_name<![CDATA[>]]>#{greaterBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookName!=null">
+			 and book_name<![CDATA[>=]]>#{greaterEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookName!=null">
+			 and book_name<![CDATA[<]]>#{lessBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookName!=null">
+			 and book_name<![CDATA[<=]]>#{lessEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookName!=null">
+			 and book_name like "%"#{likeBookName,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookName!=null">
+			 and book_name like "%"#{leftLikeBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookName!=null">
+			 and book_name like #{rightLikeBookName,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="bookPress!=null">
+			 and book_press=#{bookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookPress!=null and isNotNullBookPress==true">
+			 and book_press is not null
+		</if>
+		<if test="isNotNullBookPress!=null and isNotNullBookPress==false">
+			 and book_press is null
+		</if>
+		<if test="inBookPress!=null">
+			 and book_press in
+			<foreach collection="list" index="index" item="inBookPress" open="(" separator="," close=")">
+				#{inBookPress}
+			</foreach>
+		</if>
+		<if test="notInBookPress!=null">
+			 and book_press not in
+			<foreach collection="list" index="index" item="notInBookPress" open="(" separator="," close=")">
+				#{notInBookPress}
+			</foreach>
+		</if>
+		<if test="noEqualsBookPress!=null">
+			 and book_press<![CDATA[<>]]>#{noEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookPress!=null">
+			 and book_press=#{equalsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookPress!=null">
+			 and book_press<![CDATA[>]]>#{greaterBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookPress!=null">
+			 and book_press<![CDATA[>=]]>#{greaterEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookPress!=null">
+			 and book_press<![CDATA[<]]>#{lessBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookPress!=null">
+			 and book_press<![CDATA[<=]]>#{lessEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookPress!=null">
+			 and book_press like "%"#{likeBookPress,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookPress!=null">
+			 and book_press like "%"#{leftLikeBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookPress!=null">
+			 and book_press like #{rightLikeBookPress,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="bookAuthor!=null">
+			 and book_author=#{bookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookAuthor!=null and isNotNullBookAuthor==true">
+			 and book_author is not null
+		</if>
+		<if test="isNotNullBookAuthor!=null and isNotNullBookAuthor==false">
+			 and book_author is null
+		</if>
+		<if test="inBookAuthor!=null">
+			 and book_author in
+			<foreach collection="list" index="index" item="inBookAuthor" open="(" separator="," close=")">
+				#{inBookAuthor}
+			</foreach>
+		</if>
+		<if test="notInBookAuthor!=null">
+			 and book_author not in
+			<foreach collection="list" index="index" item="notInBookAuthor" open="(" separator="," close=")">
+				#{notInBookAuthor}
+			</foreach>
+		</if>
+		<if test="noEqualsBookAuthor!=null">
+			 and book_author<![CDATA[<>]]>#{noEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookAuthor!=null">
+			 and book_author=#{equalsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookAuthor!=null">
+			 and book_author<![CDATA[>]]>#{greaterBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookAuthor!=null">
+			 and book_author<![CDATA[>=]]>#{greaterEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookAuthor!=null">
+			 and book_author<![CDATA[<]]>#{lessBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookAuthor!=null">
+			 and book_author<![CDATA[<=]]>#{lessEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookAuthor!=null">
+			 and book_author like "%"#{likeBookAuthor,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookAuthor!=null">
+			 and book_author like "%"#{leftLikeBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookAuthor!=null">
+			 and book_author like #{rightLikeBookAuthor,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="bookKeyword!=null">
+			 and book_keyword=#{bookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookKeyword!=null and isNotNullBookKeyword==true">
+			 and book_keyword is not null
+		</if>
+		<if test="isNotNullBookKeyword!=null and isNotNullBookKeyword==false">
+			 and book_keyword is null
+		</if>
+		<if test="inBookKeyword!=null">
+			 and book_keyword in
+			<foreach collection="list" index="index" item="inBookKeyword" open="(" separator="," close=")">
+				#{inBookKeyword}
+			</foreach>
+		</if>
+		<if test="notInBookKeyword!=null">
+			 and book_keyword not in
+			<foreach collection="list" index="index" item="notInBookKeyword" open="(" separator="," close=")">
+				#{notInBookKeyword}
+			</foreach>
+		</if>
+		<if test="noEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[<>]]>#{noEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookKeyword!=null">
+			 and book_keyword=#{equalsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookKeyword!=null">
+			 and book_keyword<![CDATA[>]]>#{greaterBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[>=]]>#{greaterEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookKeyword!=null">
+			 and book_keyword<![CDATA[<]]>#{lessBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[<=]]>#{lessEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookKeyword!=null">
+			 and book_keyword like "%"#{likeBookKeyword,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookKeyword!=null">
+			 and book_keyword like "%"#{leftLikeBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookKeyword!=null">
+			 and book_keyword like #{rightLikeBookKeyword,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="bookNumber!=null">
+			 and book_number=#{bookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookNumber!=null and isNotNullBookNumber==true">
+			 and book_number is not null
+		</if>
+		<if test="isNotNullBookNumber!=null and isNotNullBookNumber==false">
+			 and book_number is null
+		</if>
+		<if test="inBookNumber!=null">
+			 and book_number in
+			<foreach collection="list" index="index" item="inBookNumber" open="(" separator="," close=")">
+				#{inBookNumber}
+			</foreach>
+		</if>
+		<if test="notInBookNumber!=null">
+			 and book_number not in
+			<foreach collection="list" index="index" item="notInBookNumber" open="(" separator="," close=")">
+				#{notInBookNumber}
+			</foreach>
+		</if>
+		<if test="noEqualsBookNumber!=null">
+			 and book_number<![CDATA[<>]]>#{noEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookNumber!=null">
+			 and book_number=#{equalsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookNumber!=null">
+			 and book_number<![CDATA[>]]>#{greaterBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookNumber!=null">
+			 and book_number<![CDATA[>=]]>#{greaterEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookNumber!=null">
+			 and book_number<![CDATA[<]]>#{lessBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookNumber!=null">
+			 and book_number<![CDATA[<=]]>#{lessEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookNumber!=null">
+			 and book_number like "%"#{likeBookNumber,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookNumber!=null">
+			 and book_number like "%"#{leftLikeBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookNumber!=null">
+			 and book_number like #{rightLikeBookNumber,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="bookBorrowNum!=null">
+			 and book_borrow_num=#{bookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookBorrowNum!=null and isNotNullBookBorrowNum==true">
+			 and book_borrow_num is not null
+		</if>
+		<if test="isNotNullBookBorrowNum!=null and isNotNullBookBorrowNum==false">
+			 and book_borrow_num is null
+		</if>
+		<if test="inBookBorrowNum!=null">
+			 and book_borrow_num in
+			<foreach collection="list" index="index" item="inBookBorrowNum" open="(" separator="," close=")">
+				#{inBookBorrowNum}
+			</foreach>
+		</if>
+		<if test="notInBookBorrowNum!=null">
+			 and book_borrow_num not in
+			<foreach collection="list" index="index" item="notInBookBorrowNum" open="(" separator="," close=")">
+				#{notInBookBorrowNum}
+			</foreach>
+		</if>
+		<if test="noEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<>]]>#{noEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookBorrowNum!=null">
+			 and book_borrow_num=#{equalsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[>]]>#{greaterBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[>=]]>#{greaterEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<]]>#{lessBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<=]]>#{lessEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookBorrowNum!=null">
+			 and book_borrow_num like "%"#{likeBookBorrowNum,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookBorrowNum!=null">
+			 and book_borrow_num like "%"#{leftLikeBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookBorrowNum!=null">
+			 and book_borrow_num like #{rightLikeBookBorrowNum,jdbcType=VARCHAR}"%"
+		</if>
+	</where>
+  </sql>
+  <sql id="BookInfoCondition_WHERE">
+	<where>
+		<if test="bookId!=null">
+			 and book_id=#{bookId,jdbcType=VARCHAR}
+		</if>
+		<if test="isNotNullBookName!=null and isNotNullBookName==true">
+			 and book_name is not null
+		</if>
+		<if test="isNotNullBookName!=null and isNotNullBookName==false">
+			 and book_name is null
+		</if>
+		<if test="inBookName!=null">
+			 and book_name in
+			<foreach collection="list" index="index" item="inBookName" open="(" separator="," close=")">
+				#{inBookName}
+			</foreach>
+		</if>
+		<if test="notInBookName!=null">
+			 and book_name not in
+			<foreach collection="list" index="index" item="notInBookName" open="(" separator="," close=")">
+				#{notInBookName}
+			</foreach>
+		</if>
+		<if test="noEqualsBookName!=null">
+			 and book_name<![CDATA[<>]]>#{noEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookName!=null">
+			 and book_name=#{equalsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookName!=null">
+			 and book_name<![CDATA[>]]>#{greaterBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookName!=null">
+			 and book_name<![CDATA[>=]]>#{greaterEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookName!=null">
+			 and book_name<![CDATA[<]]>#{lessBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookName!=null">
+			 and book_name<![CDATA[<=]]>#{lessEqualsBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookName!=null">
+			 and book_name like "%"#{likeBookName,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookName!=null">
+			 and book_name like "%"#{leftLikeBookName,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookName!=null">
+			 and book_name like #{rightLikeBookName,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="isNotNullBookPress!=null and isNotNullBookPress==true">
+			 and book_press is not null
+		</if>
+		<if test="isNotNullBookPress!=null and isNotNullBookPress==false">
+			 and book_press is null
+		</if>
+		<if test="inBookPress!=null">
+			 and book_press in
+			<foreach collection="list" index="index" item="inBookPress" open="(" separator="," close=")">
+				#{inBookPress}
+			</foreach>
+		</if>
+		<if test="notInBookPress!=null">
+			 and book_press not in
+			<foreach collection="list" index="index" item="notInBookPress" open="(" separator="," close=")">
+				#{notInBookPress}
+			</foreach>
+		</if>
+		<if test="noEqualsBookPress!=null">
+			 and book_press<![CDATA[<>]]>#{noEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookPress!=null">
+			 and book_press=#{equalsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookPress!=null">
+			 and book_press<![CDATA[>]]>#{greaterBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookPress!=null">
+			 and book_press<![CDATA[>=]]>#{greaterEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookPress!=null">
+			 and book_press<![CDATA[<]]>#{lessBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookPress!=null">
+			 and book_press<![CDATA[<=]]>#{lessEqualsBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookPress!=null">
+			 and book_press like "%"#{likeBookPress,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookPress!=null">
+			 and book_press like "%"#{leftLikeBookPress,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookPress!=null">
+			 and book_press like #{rightLikeBookPress,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="isNotNullBookAuthor!=null and isNotNullBookAuthor==true">
+			 and book_author is not null
+		</if>
+		<if test="isNotNullBookAuthor!=null and isNotNullBookAuthor==false">
+			 and book_author is null
+		</if>
+		<if test="inBookAuthor!=null">
+			 and book_author in
+			<foreach collection="list" index="index" item="inBookAuthor" open="(" separator="," close=")">
+				#{inBookAuthor}
+			</foreach>
+		</if>
+		<if test="notInBookAuthor!=null">
+			 and book_author not in
+			<foreach collection="list" index="index" item="notInBookAuthor" open="(" separator="," close=")">
+				#{notInBookAuthor}
+			</foreach>
+		</if>
+		<if test="noEqualsBookAuthor!=null">
+			 and book_author<![CDATA[<>]]>#{noEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookAuthor!=null">
+			 and book_author=#{equalsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookAuthor!=null">
+			 and book_author<![CDATA[>]]>#{greaterBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookAuthor!=null">
+			 and book_author<![CDATA[>=]]>#{greaterEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookAuthor!=null">
+			 and book_author<![CDATA[<]]>#{lessBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookAuthor!=null">
+			 and book_author<![CDATA[<=]]>#{lessEqualsBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookAuthor!=null">
+			 and book_author like "%"#{likeBookAuthor,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookAuthor!=null">
+			 and book_author like "%"#{leftLikeBookAuthor,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookAuthor!=null">
+			 and book_author like #{rightLikeBookAuthor,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="isNotNullBookKeyword!=null and isNotNullBookKeyword==true">
+			 and book_keyword is not null
+		</if>
+		<if test="isNotNullBookKeyword!=null and isNotNullBookKeyword==false">
+			 and book_keyword is null
+		</if>
+		<if test="inBookKeyword!=null">
+			 and book_keyword in
+			<foreach collection="list" index="index" item="inBookKeyword" open="(" separator="," close=")">
+				#{inBookKeyword}
+			</foreach>
+		</if>
+		<if test="notInBookKeyword!=null">
+			 and book_keyword not in
+			<foreach collection="list" index="index" item="notInBookKeyword" open="(" separator="," close=")">
+				#{notInBookKeyword}
+			</foreach>
+		</if>
+		<if test="noEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[<>]]>#{noEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookKeyword!=null">
+			 and book_keyword=#{equalsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookKeyword!=null">
+			 and book_keyword<![CDATA[>]]>#{greaterBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[>=]]>#{greaterEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookKeyword!=null">
+			 and book_keyword<![CDATA[<]]>#{lessBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookKeyword!=null">
+			 and book_keyword<![CDATA[<=]]>#{lessEqualsBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookKeyword!=null">
+			 and book_keyword like "%"#{likeBookKeyword,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookKeyword!=null">
+			 and book_keyword like "%"#{leftLikeBookKeyword,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookKeyword!=null">
+			 and book_keyword like #{rightLikeBookKeyword,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="isNotNullBookNumber!=null and isNotNullBookNumber==true">
+			 and book_number is not null
+		</if>
+		<if test="isNotNullBookNumber!=null and isNotNullBookNumber==false">
+			 and book_number is null
+		</if>
+		<if test="inBookNumber!=null">
+			 and book_number in
+			<foreach collection="list" index="index" item="inBookNumber" open="(" separator="," close=")">
+				#{inBookNumber}
+			</foreach>
+		</if>
+		<if test="notInBookNumber!=null">
+			 and book_number not in
+			<foreach collection="list" index="index" item="notInBookNumber" open="(" separator="," close=")">
+				#{notInBookNumber}
+			</foreach>
+		</if>
+		<if test="noEqualsBookNumber!=null">
+			 and book_number<![CDATA[<>]]>#{noEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookNumber!=null">
+			 and book_number=#{equalsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookNumber!=null">
+			 and book_number<![CDATA[>]]>#{greaterBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookNumber!=null">
+			 and book_number<![CDATA[>=]]>#{greaterEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookNumber!=null">
+			 and book_number<![CDATA[<]]>#{lessBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookNumber!=null">
+			 and book_number<![CDATA[<=]]>#{lessEqualsBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookNumber!=null">
+			 and book_number like "%"#{likeBookNumber,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookNumber!=null">
+			 and book_number like "%"#{leftLikeBookNumber,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookNumber!=null">
+			 and book_number like #{rightLikeBookNumber,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="isNotNullBookBorrowNum!=null and isNotNullBookBorrowNum==true">
+			 and book_borrow_num is not null
+		</if>
+		<if test="isNotNullBookBorrowNum!=null and isNotNullBookBorrowNum==false">
+			 and book_borrow_num is null
+		</if>
+		<if test="inBookBorrowNum!=null">
+			 and book_borrow_num in
+			<foreach collection="list" index="index" item="inBookBorrowNum" open="(" separator="," close=")">
+				#{inBookBorrowNum}
+			</foreach>
+		</if>
+		<if test="notInBookBorrowNum!=null">
+			 and book_borrow_num not in
+			<foreach collection="list" index="index" item="notInBookBorrowNum" open="(" separator="," close=")">
+				#{notInBookBorrowNum}
+			</foreach>
+		</if>
+		<if test="noEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<>]]>#{noEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="equalsBookBorrowNum!=null">
+			 and book_borrow_num=#{equalsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[>]]>#{greaterBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="greaterEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[>=]]>#{greaterEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="lessBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<]]>#{lessBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="lessEqualsBookBorrowNum!=null">
+			 and book_borrow_num<![CDATA[<=]]>#{lessEqualsBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="likeBookBorrowNum!=null">
+			 and book_borrow_num like "%"#{likeBookBorrowNum,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="leftLikeBookBorrowNum!=null">
+			 and book_borrow_num like "%"#{leftLikeBookBorrowNum,jdbcType=VARCHAR}
+		</if>
+		<if test="rightLikeBookBorrowNum!=null">
+			 and book_borrow_num like #{rightLikeBookBorrowNum,jdbcType=VARCHAR}"%"
+		</if>
+	</where>
+  </sql>
+  <sql id="BookInfo_UPDATE">
+	<set>
+		<if test="bookId!=null">
+			book_id=#{bookId,jdbcType=VARCHAR},
+		</if>
+		<if test="bookName!=null">
+			book_name=#{bookName,jdbcType=VARCHAR},
+		</if>
+		<if test="bookPress!=null">
+			book_press=#{bookPress,jdbcType=VARCHAR},
+		</if>
+		<if test="bookAuthor!=null">
+			book_author=#{bookAuthor,jdbcType=VARCHAR},
+		</if>
+		<if test="bookKeyword!=null">
+			book_keyword=#{bookKeyword,jdbcType=VARCHAR},
+		</if>
+		<if test="bookNumber!=null">
+			book_number=#{bookNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="bookBorrowNum!=null">
+			book_borrow_num=#{bookBorrowNum,jdbcType=VARCHAR},
+		</if>
+	</set>
+  </sql>
+    <insert id="insertBookInfo" parameterType="BookInfo" flushCache="true">
+    	<![CDATA[
+			INSERT INTO t_book_info (book_id,book_name,book_press,book_author,book_keyword,book_number,book_borrow_num) VALUES (#{bookId},#{bookName},#{bookPress},#{bookAuthor},#{bookKeyword},#{bookNumber},#{bookBorrowNum})
+		]]>
+    </insert>
+    <update id="update_BookInfo" parameterType="BookInfo" flushCache="true">
+    	<![CDATA[UPDATE t_book_info SET book_id=#{bookId,jdbcType=VARCHAR},,book_name=#{bookName,jdbcType=VARCHAR},,book_press=#{bookPress,jdbcType=VARCHAR},,book_author=#{bookAuthor,jdbcType=VARCHAR},,book_keyword=#{bookKeyword,jdbcType=VARCHAR},,book_number=#{bookNumber,jdbcType=VARCHAR},,book_borrow_num=#{bookBorrowNum,jdbcType=VARCHAR}, WHERE book_id=#{bookId,jdbcType=VARCHAR}]]>
+  	</update>
+    <update id="updateBookInfoByExample" parameterType="BookInfo" flushCache="true">
+    	<![CDATA[
+    		UPDATE t_book_info
+    	]]>
+    	<include refid="BookInfo_UPDATE" />
+    	<![CDATA[WHERE book_id=#{bookId,jdbcType=VARCHAR}]]>
+  	</update>
+  	<update id="updateBookInfoByWhere" parameterType="java.lang.String" flushCache="true">
+    	<![CDATA[
+    		UPDATE t_book_info ${value}
+    	]]>
+  	</update>
+  	<update id="updateBookInfoByCondition" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" flushCache="true">
+    	<![CDATA[UPDATE t_book_info]]>
+    	<include refid="BookInfo_UPDATE" />
+    	<include refid="BookInfoCondition_WHERE" />
+  	</update>
+  	<delete id="deleteBookInfoByWhere" parameterType="java.lang.String" flushCache="true">
+    	<![CDATA[DELETE FROM t_book_info ${value}]]>
+  	</delete>
+  	<delete id="deleteBookInfoByExample" parameterType="BookInfo" flushCache="true">
+    	<![CDATA[DELETE FROM t_book_info]]>
+    	<include refid="BookInfo_WHERE" />
+  	</delete>
+  	<delete id="deleteBookInfoByCondition" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" flushCache="true">
+    	<![CDATA[delete from t_book_info]]>
+    	<include refid="BookInfoSearchBean_WHERE" />
+  	</delete>
+  	<select id="getBookInfoByWhere" parameterType="java.lang.String" resultType="BookInfo" resultMap="t_book_infoMap">
+    	<![CDATA[SELECT * FROM t_book_info ${value}]]>
+  	</select>
+  	<select id="getBookInfoByExample" parameterType="BookInfo" resultType="BookInfo" resultMap="t_book_infoMap">  
+        <![CDATA[
+			SELECT * FROM t_book_info
+		]]>
+        <include refid="BookInfo_WHERE" />
+    </select>
+    <select id="getBookInfoByCondition" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" resultType="BookInfo" resultMap="t_book_infoMap">
+    	<![CDATA[SELECT * FROM t_book_info]]>
+    	<include refid="BookInfoSearchBean_WHERE" />
+    	<![CDATA[${orderSql}]]>
+  	</select>
+  	<select id="getBookInfoListByWhere" parameterType="java.lang.String" resultType="BookInfo" resultMap="t_book_infoMap">
+    	<![CDATA[SELECT * FROM t_book_info ${sql}]]>
+  	</select>
+  	<select id="getBookInfoListByCondition" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" resultType="BookInfo" resultMap="t_book_infoMap">
+    	<![CDATA[SELECT * FROM t_book_info]]>
+    	<include refid="BookInfoSearchBean_WHERE" />
+    	<![CDATA[${orderSql}]]>
+  	</select>
+  	<select id="getBookInfoCountByWhere" parameterType="java.lang.String" resultType="int">
+    	<![CDATA[SELECT COUNT(*) FROM t_book_info ${value}]]>
+  	</select>
+  	<select id="getBookInfoCountByExample" parameterType="BookInfo" resultType="int">
+    	<![CDATA[SELECT COUNT(*) FROM t_book_info]]>
+    	<include refid="BookInfo_WHERE" />
+  	</select>
+  	<select id="getBookInfoCountByCondition" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" resultType="int">
+    	<![CDATA[SELECT COUNT(*) FROM t_book_info]]>
+    	<include refid="BookInfoSearchBean_WHERE" />
+  	</select>
+  	<select id="getBookInfoColumnByWhere" parameterType="edu.cuc.culturaldev.search.BookInfoSearchBean" resultType="java.util.HashMap">
+    	<![CDATA[SELECT $columnSql$ FROM t_book_info]]>
+    	<include refid="BookInfoSearchBean_WHERE" />
+    	<![CDATA[${sql}]]>
+ 	</select>
+</mapper>

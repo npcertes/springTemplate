@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>
+	<properties>
+		<property name="dialect" value="mysql" />
+	</properties>
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="localCacheScope" value="STATEMENT"/>
+		<setting name="defaultExecutorType" value="SIMPLE"/>
+	</settings>
+	
+    <typeAliases>
+		<typeAlias alias="BookInfo" type="edu.cuc.culturaldev.bean.BookInfo"/>
+	</typeAliases>
+    <typeHandlers>
+		<typeHandler handler="org.apache.ibatis.type.ClobTypeHandler" jdbcType="CLOB" javaType="java.lang.String"/>	    
+	</typeHandlers>
+    <plugins>
+        <plugin interceptor="org.mybatis.commons.dialect.PaginationInterceptor" />
+    </plugins>
+    <mappers>
+    	<mapper resource="conf/mybatis/BookInfo.xml" />		
+	</mappers>
+</configuration>
